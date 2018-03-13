@@ -2,6 +2,11 @@
 
 class Input {
 
+  /**
+   * Retreieve POST variables
+   * @param  string $variable The $_POST array element
+   * @return false|$_POST[$variable]
+   */
   public static function post( $variable = false )
   {
       if( $variable )
@@ -12,6 +17,11 @@ class Input {
       }
     return $_POST;
   }
+  /**
+   * Retreive GET variables
+   * @param  string $variable The $_GET array element
+   * @return false|$_GET[$variable] 
+   */
   public static function get( $variable = false )
   {
       if( $variable )

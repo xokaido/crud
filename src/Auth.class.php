@@ -1,6 +1,11 @@
 <?php
 class Auth {
 
+  /**
+   * Perform log in to the application
+   * @param  array  $user The user credentials
+   * @return boolean      
+   */
   public static function login( array $user = [] )
   {
       $user = $user ? $user : Input::post( );
@@ -20,12 +25,21 @@ class Auth {
       setcookie( 'user',  $username .':'. $db_user->hash , strtotime( "+1 day" ) );
     return true;
   }
+  /**
+   * Log the user out of the application
+   * @return boolean
+   */
   public static function logout()
   {
       session_destroy();
       setcookie( 'user',  'blank' , strtotime( "-1 day" ) );
     return redirect( '/' );
   }
+  /**
+   * Register the user
+   * @param  array  $user The user credentials 
+   * @return boolean
+   */
   public static function register( array $user = [] )
   {
       $user = $user ? $user : Input::post( );
@@ -34,6 +48,11 @@ class Auth {
       Loader::model( 'user' );
     return User::create( $user );
   }
+  /**
+   * Check the user if its valid
+   * @param  array  $user The user credentials
+   * @return boolean       
+   */
   public static function check( array $user = [] )
   {
       Loader::model( 'user' );
@@ -49,6 +68,10 @@ class Auth {
       }
     return User::check( $user['username'], $user['hash'] );
   }
+  /**
+   * Get the authorized user
+   * @return object The returned user object
+   */
   public static function user()
   {
       if( !isset( $_SESSION['user'] ) || empty( $_SESSION[ 'user' ] ) )

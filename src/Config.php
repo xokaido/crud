@@ -1,6 +1,10 @@
 <?php
 class Config {
 
+  /**
+   * Initialize the configurations and load it from .env file
+   * @return void
+   */
   public static function init()
   {
       if( !file_exists( APP_PATH .'/.env' ) )
@@ -14,6 +18,11 @@ class Config {
       }
   }
 
+  /**
+   * Get configurations specific to DB
+   * @param  string $variable The name of the config variable
+   * @return string          The config value of the variable
+   */
   public static function db( $variable )
   {
       $entry = 'DB_'. strtoupper( $variable );

@@ -7,6 +7,10 @@ class Home {
         return redirect( '/login' );
   }
 
+  /**
+   * The /home page index method
+   * @return void
+   */
   public function index()
   {
       $user = Auth::user( );

@@ -1,6 +1,10 @@
 <?php
 class Loader {
 
+  /**
+   * Initialize the application and handle the requests
+   * @return void
+   */
   public static function init()
   {
       $uri        = trim( $_SERVER[ 'REQUEST_URI' ], '/' );
@@ -23,6 +27,11 @@ class Loader {
       else
         die( 'The Method Does Not Exist!' );
   }
+  /**
+   * Load a model passed as an argument
+   * @param  string $name 
+   * @return void
+   */
   public static function model( $name )
   {
       $name = str_replace( '.', '/', $name ); 
@@ -33,6 +42,12 @@ class Loader {
         die( 'The Model Does Not Exist!' );
   }
 
+  /**
+   * Load a view passed as an argument
+   * @param  string $name The name of the view to load
+   * @param  array  $data The data to bind to the view
+   * @return void
+   */
   public static function view( $name, $data = [] )
   {
       $name = str_replace( '.', '/', $name );
@@ -43,6 +58,11 @@ class Loader {
       else
         die( 'The View Does Not Exist!' );
   }
+  /**
+   * Load a specific library passed as an argument
+   * @param  string $name The name of the library to load
+   * @return void
+   */
   public static function library( $name )
   {
       $name = str_replace( '.', '/', $name ); 
