@@ -184,6 +184,25 @@
             });
 
           }
+         if( this.s.dt.button('xok:name') )
+         {
+            this.s.dt.button('xok:name').action( function(e, dt, node, config) {
+              var rows = dt.rows({
+                selected: true
+              }).count();
+
+              that._openMessageModal();
+            });
+
+            $(document).on('click', '#showMessage', function(e)
+            {
+              e.preventDefault();
+              e.stopPropagation();
+              // that._editRowData();
+              that._generateMessage();
+            });
+
+          }
 
          // add Delete Button
          if( this.s.dt.button('delete:name') )
@@ -244,6 +263,46 @@
         * 
         * @private
         */
+       _openMessageModal: function ( )
+       {
+         var that = this;
+         var dt = this.s.dt;
+
+         var columnDefs = [];
+         var xcolumns = dt.settings().init().columns;
+
+         for( let key in xcolumns )
+            columnDefs.push({ title: xcolumns[ key ].data })
+
+          var adata = dt.rows({
+            selected: true
+          });
+
+          var data = "";
+          data += '<div class="form-group">' +
+            '<div class="col-sm-6 col-md-6 col-lg-6">' +
+              '<textarea id="inputTextarea" style="height: 200px;width:100%;" placeholder="Input Text To Generate Message">' + '</textarea>'+
+            "</div>" + 
+            '<div class="col-sm-6 col-md-6 col-lg-6">' + 
+              '<textarea id="outputTextarea" style="height: 200px;width:100%;">' + '</textarea>'+
+            '</div>' + 
+            '<div style="clear:both;"></div>' +
+          '</div>';
+
+
+          $('#altEditor-modal').on('show.bs.modal', function() {
+            $('#altEditor-modal').find('.modal-title').html('Show Message');
+            $('#altEditor-modal').find('.modal-body').html('<pre>' + data + '</pre>');
+            $('#altEditor-modal').find('.modal-footer').html(
+              '<button type="button" class="btn btn-default" data-content="remove" data-dismiss="modal">Close</button>\
+               <button type="button" class="btn btn-primary" id="showMessage">Generate Message</button>');
+          });
+
+          $('#altEditor-modal').modal('show');
+          setTimeout(function() { $('#inputTextarea').focus(); }, 500 ); // For an unknown reason it doesn't work without setTimeout
+          // $('#inputTextarea').focus();
+
+       },
        _openEditModal: function ( )
        {
          var that = this;
@@ -288,6 +347,34 @@
           $('#altEditor-modal').modal('show');
           $('#altEditor-modal input[0]').focus();
 
+       },
+       _generateMessage: function ( )
+       {
+        $("#showMessage").html( '<i class="fa fa-spin fa-spinner fa-2x;"></i>');
+        let txt = $("#inputTextarea").val();
+
+         var that         = this;
+         var dt           = this.s.dt;
+         var columnDefs   = [];
+         var xcolumns     = dt.settings().init().columns;
+         var adata        = dt.rows({selected: true });
+         var postConfigs  = dt.settings().init().altEditorConfigs;
+         var xokvar       = {};
+
+          for( let key in xcolumns )
+            columnDefs.push({ title: xcolumns[ key ].data });
+          for (var j in columnDefs) 
+            xokvar[ columnDefs[ j ].title.toLowerCase() ] = eval( 'adata.data()[0].' + columnDefs[ j ].title.toLowerCase()  );
+
+          var xdata = xokvar;
+          xdata[ 'message' ] = txt;
+
+          $.post( postConfigs[0].editURL, { data: xdata }, function( r ) {
+            
+            $("#showMessage").html( 'Generate Message');
+            $("#outputTextarea").val( r );
+
+          });
        },
 
        _editRowData: function()

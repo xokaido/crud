@@ -14,11 +14,7 @@ class DB  {
                           \PDO::ATTR_EMULATE_PREPARES => false
                       ]
                    );
-
-
-
-
-      return $db;
+    return $db;
   }
 
 }

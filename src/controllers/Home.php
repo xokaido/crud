@@ -35,12 +35,17 @@ class Home {
   {
       $user = Auth::user( );
       $page = 'messages';
-
       Loader::view( 'parts.header' );
       Loader::view( 'messages', compact( 'user', 'page' ) );
       Loader::view( 'parts.footer' );
 
   } 
+  public function processmessage()
+  {
+      Loader::model( 'messages' );
+      $response = Messages::edit( Input::post( 'data' ) );
+    return $this->notify( $response );
+  }
   public function json( $param = false )
   {
       if( !$param )
@@ -71,7 +76,7 @@ class Home {
         die( 'Edit what?' );
 
       Loader::model( $param );
-      $class = ucfirst( $param );
+      $class    = ucfirst( $param );
 
       if( $class::edit( Input::post( 'data' ) ) )
         return $this->notify( 'Success! The record has been created.' );

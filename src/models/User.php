@@ -1,5 +1,6 @@
 <?php 
 class User {
+  
   public static function get( $username )
   {
       $db       = DB::get();

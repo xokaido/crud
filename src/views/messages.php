@@ -2,6 +2,25 @@
 
 $(document).ready( function() {
 
+  var table = $('#example').DataTable( {
+        "ajax": { "url": "/home/json/operators", "type": "post" },
+        "columns": [
+            { "data": "id" },
+            { "data": "name" },
+            { "data": "phone" },
+        ],
+        "dom":        'Bfrtip',    // Needs button container
+        "select":     'single',
+        "responsive": true,
+        "altEditor":  true,   
+        "altEditorConfigs" : [  { "editURL":   '/home/processmessage' } ],
+        "buttons": [
+                  {   extend: 'selected',
+                      text: 'Show Message',
+                      name: 'xok'
+                 }]
+
+    } );
 } );
 
 </script>
@@ -26,7 +45,22 @@ $(document).ready( function() {
         <div class="col-lg-12">
           <div class="well well-lg">
             <center>
-              <b>The messages page could be here!...</b>
+          <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-striped table-responsive" id="example">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name of the Operator</th>
+                <th>Phone Number</th>
+              </tr>
+          </thead>
+          <tfoot>
+              <tr>
+                <th>ID</th>
+                <th>Name of the Operator</th>
+                <th>Phone Number</th>
+              </tr>
+             </tfoot>
+          </table>
             </center>
           </div>
         </div>
