@@ -18,6 +18,7 @@ class Messages {
   {
       $row        = (object) $row;
       $msg_template = $row->message;
+      $msg_parsed = $row->message; // just a placeholder in case there were no templates
       $templates  = self::extractTemplates( $msg_template );
       $db         = DB::get();
       $sql        = 'SELECT * FROM operators WHERE id = ? LIMIT 1';
@@ -25,32 +26,28 @@ class Messages {
       $stm->execute([ $row->id ]);
       $operator   = $stm->fetch( PDO::FETCH_OBJ );
 
-      if( !empty( $templates ) )
-      {
-        $searches = [];
-        $replaces = [];
-        foreach( $templates as $template )
-        {
-          foreach( $template['search'] as $k => $v ) 
-          {
+      if( !empty( $templates ) ) :
+        $searches   = [];
+        $replaces   = [];
+        foreach( $templates as $template ) :
+          foreach( $template['search'] as $k => $v ) :
             $searches[] = $v;
             $replaces[] = $operator->{$template[ 'replace' ][ $k ]};
-          }
-        }
+          endforeach
+        endforeach
         $msg_parsed = str_replace($searches, $replaces, $msg_template );
-        $sql = 'INSERT INTO messages (operator_id, msg_template, msg_parsed )
-                     VALUES ( :operator_id, :msg_template, :msg_parsed )
-                     ON DUPLICATE KEY
-                     UPDATE msg_template = :msg_template2 , msg_parsed = :msg_parsed2';
-        $stm = $db->prepare( $sql );
-        $stm->bindParam( ':operator_id',  $operator->id );
-        $stm->bindParam( ':msg_template', $msg_template );
-        $stm->bindParam( ':msg_parsed',   $msg_parsed   );
-
-        $stm->bindParam( ':msg_template2', $msg_template );
-        $stm->bindParam( ':msg_parsed2',   $msg_parsed   );
-        $stm->execute( );
-      }
+      endif;
+      $sql = 'INSERT INTO messages (operator_id, msg_template, msg_parsed )
+                   VALUES ( :operator_id, :msg_template, :msg_parsed )
+                   ON DUPLICATE KEY
+                   UPDATE msg_template = :msg_template2 , msg_parsed = :msg_parsed2';
+      $stm = $db->prepare( $sql );
+      $stm->bindParam( ':operator_id',  $operator->id );
+      $stm->bindParam( ':msg_template', $msg_template );
+      $stm->bindParam( ':msg_parsed',   $msg_parsed   );
+      $stm->bindParam( ':msg_template2', $msg_template );
+      $stm->bindParam( ':msg_parsed2',   $msg_parsed   );
+      $stm->execute( );
     return $msg_parsed;
   } 
   public static function delete( array $row = [] )
