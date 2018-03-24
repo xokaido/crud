@@ -122,7 +122,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'xokaido','$2y$10$9kVeOYZK0JJKpkax7c7V5e/ysxmr6mtW/VodwVCVeQBRNL7bYixVe','seIjmLme/QV16'),(2,'admin','$2y$10$fw6Pf8ulD7dFj.HqgcFYXeg.vLWJjP.Tc7pvgS.oj0bMC.IUxUiGO','seP.9QLXNA2ik');
+INSERT INTO `users` VALUES (2,'admin','$2y$10$fw6Pf8ulD7dFj.HqgcFYXeg.vLWJjP.Tc7pvgS.oj0bMC.IUxUiGO','seP.9QLXNA2ik');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -135,4 +135,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-24  6:44:36
+-- Dump completed on 2018-03-24  6:46:31
