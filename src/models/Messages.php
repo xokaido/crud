@@ -9,6 +9,16 @@ class Messages {
       $stm->execute( );
     return $stm->fetch( PDO::FETCH_OBJ );
   }
+  public static function get( $operator_id = false )
+  {
+      if( !$operator_id )
+        return false;
+      $db  = DB::get();
+      $sql = 'SELECT * FROM messages WHERE operator_id = ?';
+      $stm = $db->prepare( $sql );
+      $stm->execute([ $operator_id ]);
+    return $stm->fetch( PDO::FETCH_OBJ );
+  }
 
   public static function add( array $row = [] )
   {
@@ -33,8 +43,8 @@ class Messages {
           foreach( $template['search'] as $k => $v ) :
             $searches[] = $v;
             $replaces[] = $operator->{$template[ 'replace' ][ $k ]};
-          endforeach
-        endforeach
+          endforeach;
+        endforeach;
         $msg_parsed = str_replace($searches, $replaces, $msg_template );
       endif;
       $sql = 'INSERT INTO messages (operator_id, msg_template, msg_parsed )

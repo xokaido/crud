@@ -277,6 +277,7 @@
           var adata = dt.rows({
             selected: true
           });
+          var rowData = adata.data()[0];
 
           var data = "";
           data += '<div class="form-group">' +
@@ -298,7 +299,15 @@
                <button type="button" class="btn btn-primary" id="showMessage">Generate Message</button>');
           });
 
+          $.post( '/home/showmessage', { operator_id: rowData.id }, function( r ) {
+
+              $("#inputTextarea").val( r.data.msg_template );
+              $("#outputTextarea").val( r.data.msg_parsed );
+
+          }, 'json');
+
           $('#altEditor-modal').modal('show');
+
           setTimeout(function() { $('#inputTextarea').focus(); }, 500 ); // For an unknown reason it doesn't work without setTimeout
           // $('#inputTextarea').focus();
 
@@ -370,7 +379,7 @@
           xdata[ 'message' ] = txt;
 
           $.post( postConfigs[0].editURL, { data: xdata }, function( r ) {
-            
+
             $("#showMessage").html( 'Generate Message');
             $("#outputTextarea").val( r );
 

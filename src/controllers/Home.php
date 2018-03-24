@@ -46,6 +46,12 @@ class Home {
       $response = Messages::edit( Input::post( 'data' ) );
     return $this->notify( $response );
   }
+  public function showmessage()
+  {
+      Loader::model( 'messages' );
+     $json = Messages::get( Input::post( 'operator_id' ) ) ;
+    return Loader::view( 'parts.json', compact( 'json' ) );
+  }
   public function json( $param = false )
   {
       if( !$param )
