@@ -13,8 +13,8 @@ class Operators {
   {
       if( !$row )
         return false;
-      if( isset( $row[ 'lastdate' ] ) && empty( $row[ 'lastdate' ] ) )
-        unset( $row[ 'lastdate' ] );
+      if( isset( $row[ 'last_call' ] ) && empty( $row[ 'last_call' ] ) )
+        unset( $row[ 'last_call' ] );
       if( isset( $row[ 'id' ] ) )
         unset( $row[ 'id' ] );
 

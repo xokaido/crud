@@ -11,7 +11,7 @@ $(document).ready( function() {
             { "data": "last6hrs" },
             { "data": "last24hrs" },
             { "data": "last48hrs" },
-            { "data": "lastdate" }
+            { "data": "last_call" }
         ],
         "dom":        'Bfrtip',    // Needs button container
         "select":     'single',
