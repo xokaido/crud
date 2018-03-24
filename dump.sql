@@ -58,7 +58,7 @@ CREATE TABLE `messages` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `operator_id` (`operator_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (1,4,'[name] is the same as [#name] or even [$name]. The same goes for the {phone} or {$phone} or even {#phone}.','xok was here again is the same as xok was here again or even xok was here again. The same goes for the (305) 7677781 or (305) 7677781 or even (305) 7677781.','2018-03-23 19:13:06','2018-03-23 19:13:06'),(6,3,'[phone] is the same as [#name] or even [$name]. The same goes for the {phone} or {$phone} or even {#phone}.','(203) 433-7410 is the same as the operator 3 or even the operator 3. The same goes for the (203) 433-7410 or (203) 433-7410 or even (203) 433-7410.','2018-03-23 19:19:15','2018-03-23 19:19:15'),(8,10,'[phone] is the same as [#name] or even [$name]. The same goes for the {phone} or {$phone} or even {#phone}.','(203) 433-7410 is the same as the operator 3 or even the operator 3. The same goes for the (203) 433-7410 or (203) 433-7410 or even (203) 433-7410.','2018-03-23 19:22:05','2018-03-23 19:22:05');
+INSERT INTO `messages` VALUES (1,4,'[phone] is the same as [#name] or even [$name]. The same goes for the {phone} or {$phone} or even {#phone}.','(305) 7677781 is the same as xok was here again or even xok was here again. The same goes for the (305) 7677781 or (305) 7677781 or even (305) 7677781.','2018-03-23 19:13:06','2018-03-23 19:13:06'),(6,3,'','','2018-03-23 19:19:15','2018-03-23 19:19:15'),(8,10,'[phone] is the same as [#name] or even [$name]. The same goes for the {phone} or {$phone} or even {#phone}.','(203) 433-7410 is the same as the operator 3 or even the operator 3. The same goes for the (203) 433-7410 or (203) 433-7410 or even (203) 433-7410.','2018-03-23 19:22:05','2018-03-23 19:22:05'),(19,1,'[phone] is the same as [#name] or even [$name]. The same goes for the {phone} or {$phone} or even {#phone}.','203350-8605 is the same as the first operator or even the first operator. The same goes for the 203350-8605 or 203350-8605 or even 203350-8605.','2018-03-24 01:52:14','2018-03-24 01:52:14');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +113,7 @@ CREATE TABLE `users` (
   `password` varchar(60) NOT NULL,
   `hash` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'xokaido','$2y$10$9kVeOYZK0JJKpkax7c7V5e/ysxmr6mtW/VodwVCVeQBRNL7bYixVe','seIjmLme/QV16');
+INSERT INTO `users` VALUES (1,'xokaido','$2y$10$9kVeOYZK0JJKpkax7c7V5e/ysxmr6mtW/VodwVCVeQBRNL7bYixVe','seIjmLme/QV16'),(2,'admin','$2y$10$fw6Pf8ulD7dFj.HqgcFYXeg.vLWJjP.Tc7pvgS.oj0bMC.IUxUiGO','seP.9QLXNA2ik');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -135,4 +135,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-23 23:29:17
+-- Dump completed on 2018-03-24  5:55:02
